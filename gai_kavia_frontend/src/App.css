@@ -1,104 +1,272 @@
-/* CSS Variables for Theme Management */
+/* Ocean Professional Theme Variables */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --color-primary: #2563EB;     /* primary */
+  --color-secondary: #F59E0B;   /* secondary/success */
+  --color-success: #F59E0B;
+  --color-error: #EF4444;
+  --color-bg: #f9fafb;          /* background */
+  --color-surface: #ffffff;     /* surface */
+  --color-text: #111827;        /* text */
+
+  --radius: 12px;
+  --radius-sm: 10px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.08);
+  --transition: 200ms ease;
+
+  --gradient: linear-gradient(135deg, rgba(37,99,235,0.08), #fafafa);
 }
 
+/* Dark mode overrides (optional) */
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --color-bg: #0f172a;
+  --color-surface: #0b1224;
+  --color-text: #e5e7eb;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 8px 20px rgba(0,0,0,0.45);
+  --gradient: linear-gradient(135deg, rgba(37,99,235,0.18), rgba(2,6,23,1));
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
+/* Base */
+.app-root {
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  background: var(--gradient);
+  color: var(--color-text);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Surfaces and visuals */
+.surface {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.shadow {
+  box-shadow: var(--shadow-sm);
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.shadow:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Header */
+.app-header {
+  margin: 16px;
+  padding: 16px 20px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  justify-content: space-between;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
+.brand-mark {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(225deg, rgba(37,99,235,0.2), rgba(245,158,11,0.18));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: rgba(17,24,39,0.6);
+  font-weight: 500;
+}
+
+[data-theme="dark"] .subtitle {
+  color: rgba(229,231,235,0.7);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Buttons */
+.btn {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 14px;
+  line-height: 1;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition), color var(--transition), border-color var(--transition);
+  user-select: none;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.btn:active {
+  transform: translateY(1px);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.25);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: rgba(17,24,39,0.12);
+  color: var(--color-text);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Body Layout */
+.app-body {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+  padding: 0 16px 16px 16px;
+}
+
+@media (max-width: 900px) {
+  .app-body {
+    grid-template-columns: 1fr;
   }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+/* Sidebar */
+.sidebar {
+  padding: 16px;
+}
+
+.nav {
+  display: grid;
+  gap: 10px;
+}
+
+.nav-btn {
+  background: var(--color-surface);
+  border: 1px solid rgba(17,24,39,0.08);
+  color: var(--color-text);
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.nav-btn:hover {
+  background: linear-gradient(180deg, rgba(37,99,235,0.05), rgba(255,255,255,0.5));
+  border-color: rgba(37,99,235,0.25);
+  box-shadow: 0 6px 14px rgba(37,99,235,0.12);
+  transform: translateY(-1px);
+}
+
+.nav-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.env-block {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px dashed rgba(17,24,39,0.15);
+  border-radius: var(--radius-sm);
+  background: linear-gradient(180deg, rgba(245,158,11,0.06), rgba(255,255,255,0.5));
+}
+
+.env-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.env-item {
+  display: flex;
+  gap: 8px;
+  font-size: 0.92rem;
+  padding: 4px 0;
+}
+
+.env-key {
+  min-width: 92px;
+  color: rgba(17,24,39,0.65);
+}
+
+[data-theme="dark"] .env-key {
+  color: rgba(229,231,235,0.65);
+}
+
+.env-val {
+  word-break: break-all;
+}
+
+/* Main */
+.main {
+  padding: 16px;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.section-title {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+.muted {
+  color: rgba(17,24,39,0.6);
+}
+
+[data-theme="dark"] .muted {
+  color: rgba(229,231,235,0.65);
+}
+
+.alert {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.alert.error {
+  color: white;
+  background: linear-gradient(180deg, rgba(239,68,68,0.9), rgba(239,68,68,0.8));
+  box-shadow: 0 8px 16px rgba(239,68,68,0.25);
+}
+
+.result {
+  margin: 0;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  background: #0b1224;
+  color: #e5e7eb;
+  overflow-x: auto;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+[data-theme="dark"] .result {
+  background: #0a0f1f;
+}
+
+/* Footer */
+.app-footer {
+  margin: 0 16px 16px 16px;
+  padding: 14px 16px;
+  text-align: center;
+  color: rgba(17,24,39,0.6);
 }
