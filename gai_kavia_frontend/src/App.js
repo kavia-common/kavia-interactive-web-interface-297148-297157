@@ -20,7 +20,8 @@ function App() {
   const [error, setError] = useState('');
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3001';
-  const docsHref = `${backendUrl}/docs`;
+  const docsPath = process.env.REACT_APP_BACKEND_DOCS_PATH || '/swagger-ui.html';
+  const docsHref = `${backendUrl}${docsPath}`;
   const apiBase = getApiBase();
 
   useEffect(() => {
